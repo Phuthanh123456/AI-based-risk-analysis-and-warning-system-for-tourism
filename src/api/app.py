@@ -185,14 +185,14 @@ def load_weather_model():
         print(f"[Weather AI] Failed to load model: {e}")
 
 
-@app.on_event("startup")
-def preload_features_df():
-    """Eagerly load the features DataFrame at startup so the first request is fast."""
-    try:
-        df = load_features_df(force=True)
-        print(f"[Startup] Features DataFrame pre-loaded: {len(df)} rows")
-    except Exception as e:
-        print(f"[Startup] Failed to pre-load features: {e}")
+
+# Note: the features DataFrame is intentionally NOT eagerly preloaded at
+# startup — on memory-constrained hosts (e.g. Render's free 512MB tier),
+# loading the weather model + this DataFrame simultaneously at startup can
+# exceed the memory limit and crash the process before it can serve any
+# requests. load_features_df() (in utils.py) lazy-loads and caches on the
+# first request that actually needs it (/risk, /trip, etc.), so cold start
+# is a bit slower on the very first such request instead.
 
 
 @app.on_event("startup")
