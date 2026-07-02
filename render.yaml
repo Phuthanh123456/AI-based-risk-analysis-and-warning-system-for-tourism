@@ -6,6 +6,10 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn src.api.app:app --host 0.0.0.0 --port $PORT
     envVars:
+      # Pin Python version — pandas==2.2.2 has no prebuilt wheel for newer
+      # Python (e.g. 3.13), which forces a from-source build and fails.
+      - key: PYTHON_VERSION
+        value: 3.11.9
       - key: JWT_SECRET
         sync: false
       - key: JWT_EXPIRE_MINUTES
