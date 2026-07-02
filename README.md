@@ -761,7 +761,7 @@ This repo ships deploy-ready configs; **no deployment has been performed automat
 1. Push this repo to GitHub.
 2. In [Render](https://render.com), choose **New → Blueprint**, point it at the repo — it will read `render.yaml` and provision a free Python web service automatically.
 3. Fill in the `sync: false` environment variables in the Render dashboard (`JWT_SECRET`, `OPENWEATHERMAP_API_KEY`, `SERPAPI_KEYS`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, etc. — see [§6](#6-environment-variables)).
-4. `render.yaml` attaches a persistent disk at `data/state` so the SQLite database survives redeploys.
+4. **Free tier note**: Render's free plan doesn't support persistent disks, so the SQLite database (users/trip history/push subscriptions) resets on every redeploy. Fine for demo/portfolio use; upgrade to a paid plan and attach a disk at `data/state` if you need it to persist.
 
 ### Frontend → Vercel
 

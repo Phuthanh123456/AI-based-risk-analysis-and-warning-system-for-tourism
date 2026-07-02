@@ -24,7 +24,7 @@ services:
         sync: false
       - key: VAPID_CONTACT_EMAIL
         sync: false
-    disk:
-      name: travel-risk-data
-      mountPath: /opt/render/project/src/data/state
-      sizeGB: 1
+    # Note: Render's free tier does not support persistent disks, so the
+    # SQLite database (users/trip_history/push_subscriptions) resets on
+    # every redeploy. Upgrade to a paid plan and re-add a `disk:` block
+    # (see git history) if you need it to persist.
