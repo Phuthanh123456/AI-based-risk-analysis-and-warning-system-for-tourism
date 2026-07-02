@@ -1,0 +1,15 @@
+{
+  "name": "AI Risk Prediction — Vietnam Travel Risk",
+  "short_name": "TravelRisk",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

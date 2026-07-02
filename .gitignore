@@ -1,0 +1,35 @@
+# Python virtual environments
+.venv/
+.venv_run/
+venv/
+venv_new/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+travel-ui/node_modules/
+travel-ui/dist/
+
+# Secrets
+.env
+
+# Runtime state / logs (SQLite db, seen-ids cache, dev logs)
+data/state/*.sqlite
+data/state/*.sqlite-journal
+backend.log
+frontend.log
+
+# OS / editor
+.DS_Store
+.vscode/
+
+# PhoBERT training checkpoints (~3GB, not needed to run the API — inference
+# is pre-computed and already baked into data/features/articles_features.jsonl).
+# Re-generate by running src/train/train.py if you need to retrain.
+data/outputs/checkpoints/
+
+# Unused duplicate/old model file (not referenced by any code path)
+src/integrations/weather/Final_Model_AI_For_Weather_Detect.pkl

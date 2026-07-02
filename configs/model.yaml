@@ -1,0 +1,136 @@
+version: "1.0"
+
+# =========================
+# 0) Global
+# =========================
+project:
+  run_name: "travel_risk_v1"
+  seed: 42
+  device: "auto"          # auto | cpu | cuda
+  num_workers: 2
+
+paths:
+  clean_jsonl: "data/clean/articles_clean.jsonl"
+  features_jsonl: "data/features/articles_features.jsonl"
+
+  dataset_dir: "data/datasets"
+  outputs_dir: "data/outputs"
+
+  # nơi lưu model checkpoints
+  ckpt_dir: "data/outputs/checkpoints"
+
+text:
+  # dùng title + body
+  use_title: true
+  use_body: true
+  separator: "\n\n"
+
+  # limit theo tokenizer (PhoBERT); v1 cứ 256 cho nhẹ, sau tăng 512
+  max_length: 256
+
+# =========================
+# 1) Base model
+# =========================
+model:
+  backbone: "vinai/phobert-base"
+  dropout: 0.1
+
+# =========================
+# 2) Task definitions (2 stage)
+# =========================
+tasks:
+  # -------- Stage 1: binary risk-any --------
+  stage1_risk_any:
+    enabled: true
+    task_type: "binary"         # binary | multilabel | regression
+    target_field: "risk_any"    # sẽ lấy từ features/rule
+    num_labels: 1
+    threshold: 0.5              # dùng khi infer ra label
+
+    loss:
+      name: "bce_with_logits"
+      pos_weight: "auto"        # auto | number (vd: 3.0)
+
+    infer:
+      output_prob_field: "p_risk_any"
+      output_label_field: "pred_risk_any"
+
+  # -------- Stage 2: multi-label 5 nhóm --------
+  stage2_risk_groups:
+    enabled: false              # bật sau khi stage1 ổn
+    task_type: "multilabel"
+    target_field: "risk_groups_binary"  # dict/array -> sẽ build trong dataset script
+    labels:
+      - "Pricing_Issue"
+      - "Environmental_Cleanliness"
+      - "Safety_Security"
+      - "Natural_Disaster"
+      - "Fire_Accident_Risk"
+    threshold: 0.5
+
+    loss:
+      name: "bce_with_logits"
+      pos_weight: "auto"        # auto hoặc list theo label (nâng cấp sau)
+
+    infer:
+      output_prob_field: "p_risk_groups"     # mảng 5 số
+      output_label_field: "pred_risk_groups" # mảng 5 nhãn 0/1
+
+# =========================
+# 3) Training hyperparams
+# =========================
+train:
+  batch_size: 16
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  num_epochs: 3
+  warmup_ratio: 0.06
+  grad_clip_norm: 1.0
+
+  # mixed precision nếu cuda
+  fp16: true
+
+  # early stopping nhẹ (theo val metric)
+  early_stopping:
+    enabled: true
+    metric: "f1"
+    patience: 2
+    mode: "max"
+
+# =========================
+# 4) Split strategy (dataset build)
+# =========================
+split:
+  strategy: "time"     # time | random
+  train_ratio: 0.8
+  val_ratio: 0.2
+
+  # nếu strategy=time: dùng published_at để split
+  time:
+    # nếu để null, script sẽ tự cắt theo percentile
+    cutoff_date: null
+
+# =========================
+# 5) Evaluation + metrics
+# =========================
+metrics:
+  binary:
+    - "precision"
+    - "recall"
+    - "f1"
+    - "auc_pr"
+  multilabel:
+    - "macro_f1"
+    - "micro_f1"
+
+# =========================
+# 6) Inference + heatmap output
+# =========================
+infer:
+  # file predictions (append/overwrite tùy script)
+  predictions_jsonl: "data/outputs/predictions.jsonl"
+
+  # heatmap: chọn score chính để aggregate
+  heatmap_primary_score: "p_risk_any"     # p_risk_any | risk_score_rule
+  # nếu muốn scale ra 0-100 cho heatmap
+  heatmap_scale_0_100: true

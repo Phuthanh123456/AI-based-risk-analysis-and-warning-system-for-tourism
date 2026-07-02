@@ -1,0 +1,15 @@
+.venv/
+.venv_run/
+venv/
+venv_new/
+travel-ui/node_modules/
+travel-ui/dist/
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+.git/
+.env
+data/state/*.sqlite
+*.pyc
+backend.log
+frontend.log

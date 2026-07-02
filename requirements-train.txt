@@ -1,0 +1,16 @@
+# Additional dependencies for the offline data pipeline: crawling news
+# (src/crawl), cleaning/extraction (src/clean), and fine-tuning PhoBERT
+# (src/train). NOT needed to run the API server — see requirements.txt.
+#
+# Install both for the full pipeline: pip install -r requirements.txt -r requirements-train.txt
+
+feedparser==6.0.11
+python-dateutil==2.9.0.post0
+trafilatura==1.12.2
+beautifulsoup4==4.12.3
+lxml==5.2.2
+tqdm==4.66.5
+torch
+transformers==4.44.2
+datasets==2.20.0
+accelerate>=0.33.0

@@ -1,0 +1,278 @@
+/* App.css — App-level overrides */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ===== Sidebar Card component ===== */
+.sidebar-card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+
+/* ===== Forecast day button (weather slider) ===== */
+.forecast-day-btn {
+  min-width: 56px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.forecast-day-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+.forecast-day-btn.active {
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ===== Header dropdown menu ===== */
+.header-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.header-dropdown-toggle {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+}
+.header-dropdown-toggle:hover {
+  background: var(--surface-hover);
+}
+.header-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 200px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  padding: 6px;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.header-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+  transition: background 0.15s;
+}
+.header-dropdown-item:hover {
+  background: var(--surface-hover);
+}
+.header-dropdown-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Logout button (outline style) ===== */
+.btn-logout {
+  padding: 8px 14px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #D1D5DB;
+  background: transparent;
+  color: #4B5563;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-logout:hover {
+  border-color: #9CA3AF;
+  background: #F9FAFB;
+}
+
+/* ===== Primary action button ===== */
+.btn-primary {
+  padding: 8px 16px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: #2563EB;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-primary:hover {
+  background: #1D4ED8;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+}
+.btn-primary:disabled {
+  background: #93C5FD;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ===== LandingPage Hero Section Custom Styles ===== */
+.landing-cta-primary {
+  position: fixed;
+  top: 32px;
+  right: 40px;
+  z-index: 20;
+  padding: 14px 32px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(37,99,235,0.45), 0 2px 8px rgba(0,0,0,0.2);
+  letter-spacing: 0.3px;
+  transition: all 0.25s cubic-bezier(.22,.9,.26,1);
+}
+.landing-cta-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(37,99,235,0.55), 0 4px 12px rgba(0,0,0,0.25);
+}
+.landing-cta-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.landing-features-group {
+  position: fixed;
+  left: 32px;
+  bottom: 32px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 16px;
+  padding: 18px 18px 18px 18px;
+  box-shadow: 0 4px 18px rgba(37,99,235,0.10);
+  align-items: flex-start;
+}
+.landing-features-group.landing-features-top-left {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  right: auto;
+  bottom: auto;
+  flex-direction: row;
+  gap: 20px;
+  background: rgba(255,255,255,0.32);
+  border-radius: 14px;
+  padding: 10px 18px;
+  box-shadow: 0 2px 10px rgba(37,99,235,0.08);
+  align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.landing-feature-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-width: 90px;
+}
+.landing-feature-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(37,99,235,0.07);
+  border: 1px solid rgba(37,99,235,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  margin-right: 4px;
+  backdrop-filter: blur(6px);
+}
+.landing-feature-label {
+  color: #111827;
+  font-weight: 700;
+  font-size: 12px;
+}
+.landing-feature-desc {
+  color: #6B7280;
+  font-size: 10px;
+}
+
+/* ===== GPS standalone header button ===== */
+.btn-gps {
+  padding: 7px 14px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #2563EB;
+  background: #ffffff;
+  color: #2563EB;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.btn-gps:hover {
+  background: #EFF6FF;
+}
+.btn-gps:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ===== GPS pulse animation ===== */
+@keyframes gps-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+.pulse-active {
+  animation: gps-pulse 2s infinite;
+}

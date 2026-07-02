@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: travel-risk-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.api.app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRE_MINUTES
+        value: "1440"
+      - key: OPENWEATHERMAP_API_KEY
+        sync: false
+      - key: SERPAPI_KEYS
+        sync: false
+      - key: TRACKASIA_KEY
+        sync: false
+      - key: TRACKASIA_BASE
+        value: https://maps.track-asia.com
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_CONTACT_EMAIL
+        sync: false
+    disk:
+      name: travel-risk-data
+      mountPath: /opt/render/project/src/data/state
+      sizeGB: 1

@@ -1,0 +1,180 @@
+/* ===== Global Typography & Color Palette ===== */
+:root {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #4B5563;
+  background-color: #F9FAFB;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Design Tokens (Light — default) ===== */
+:root {
+  --bg: #F9FAFB;
+  --card: #FFFFFF;
+  --text: #4B5563;
+  --text-heading: #111827;
+  --muted: #9CA3AF;
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+  --risk-low: #22C55E;
+  --risk-medium: #F59E0B;
+  --risk-high: #F97316;
+  --risk-critical: #EF4444;
+  --surface: #FFFFFF;
+  --surface-hover: #F9FAFB;
+}
+
+/* ===== Dark Theme ===== */
+[data-theme="dark"] {
+  --bg: #111827;
+  --card: #1F2937;
+  --text: #D1D5DB;
+  --text-heading: #F9FAFB;
+  --muted: #6B7280;
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+  --border: #374151;
+  --border-light: #1F2937;
+  --risk-low: #22C55E;
+  --risk-medium: #F59E0B;
+  --risk-high: #F97316;
+  --risk-critical: #EF4444;
+  --surface: #1F2937;
+  --surface-hover: #374151;
+}
+
+/* ===== Base body ===== */
+body {
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* ===== Headings ===== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* ===== Links ===== */
+a {
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* ===== Global button reset ===== */
+button {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+button:hover {
+  border-color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ===== Pill theme switch ===== */
+.theme-switch {
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--border-light);
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+.theme-switch .knob {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transform: translateX(0);
+  transition: transform 200ms cubic-bezier(.2,.9,.3,1), background 200ms;
+}
+.theme-switch.on {
+  background: linear-gradient(90deg, #4f46e5, #06b6d4);
+  border-color: transparent;
+}
+.theme-switch.on .knob {
+  transform: translateX(22px);
+  background: #fff;
+}
+
+/* ===== Pulse Marker Animations (Leaflet) ===== */
+@keyframes pulse-red {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+}
+@keyframes pulse-blue {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+}
+
+.pulse-marker-red,
+.pulse-marker-blue {
+  position: relative;
+}
+.pulse-marker-red::before,
+.pulse-marker-red::after,
+.pulse-marker-blue::before,
+.pulse-marker-blue::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.pulse-marker-red::before {
+  background: rgba(239, 68, 68, 0.4);
+  animation: pulse-red 1.8s ease-out infinite;
+}
+.pulse-marker-red::after {
+  background: rgba(239, 68, 68, 0.25);
+  animation: pulse-red 1.8s ease-out 0.6s infinite;
+}
+.pulse-marker-blue::before {
+  background: rgba(37, 99, 235, 0.4);
+  animation: pulse-blue 1.8s ease-out infinite;
+}
+.pulse-marker-blue::after {
+  background: rgba(37, 99, 235, 0.25);
+  animation: pulse-blue 1.8s ease-out 0.6s infinite;
+}
+
+/* (html/body/#root and .leaflet-container rules are in App.css) */
