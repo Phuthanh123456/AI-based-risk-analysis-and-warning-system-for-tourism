@@ -4,12 +4,18 @@
   "rewrites": [
     { "source": "/api/:path*", "destination": "https://travel-risk-api-production.up.railway.app/api/:path*" },
     { "source": "/trip", "destination": "https://travel-risk-api-production.up.railway.app/trip" },
+    { "source": "/risk", "destination": "https://travel-risk-api-production.up.railway.app/risk" },
     { "source": "/risk/:path*", "destination": "https://travel-risk-api-production.up.railway.app/risk/:path*" },
     { "source": "/health", "destination": "https://travel-risk-api-production.up.railway.app/health" },
+    { "source": "/map", "destination": "https://travel-risk-api-production.up.railway.app/map" },
     { "source": "/map/:path*", "destination": "https://travel-risk-api-production.up.railway.app/map/:path*" },
+    { "source": "/gps", "destination": "https://travel-risk-api-production.up.railway.app/gps" },
     { "source": "/gps/:path*", "destination": "https://travel-risk-api-production.up.railway.app/gps/:path*" },
+    { "source": "/traffic", "destination": "https://travel-risk-api-production.up.railway.app/traffic" },
     { "source": "/traffic/:path*", "destination": "https://travel-risk-api-production.up.railway.app/traffic/:path*" },
+    { "source": "/weather", "destination": "https://travel-risk-api-production.up.railway.app/weather" },
     { "source": "/weather/:path*", "destination": "https://travel-risk-api-production.up.railway.app/weather/:path*" },
+    { "source": "/debug", "destination": "https://travel-risk-api-production.up.railway.app/debug" },
     { "source": "/debug/:path*", "destination": "https://travel-risk-api-production.up.railway.app/debug/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
