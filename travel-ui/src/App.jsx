@@ -900,7 +900,7 @@ export default function App() {
       >
         <div style={{ position: "relative", display: "inline-block" }}>
           <style>{`
-            .header-decor { position: absolute; inset: -28px -64px -28px -64px; pointer-events: none; z-index: 0 }
+            .header-decor { position: absolute; inset: -28px -64px -28px -64px; pointer-events: none; z-index: 0; overflow: hidden }
             .hdr-icon { position: absolute; width: 20px; height: 20px; opacity: 0.98 }
             .hdr-sway { animation: sway 3.6s ease-in-out infinite }
             @keyframes sway { 0% { transform: translateY(0) rotate(-6deg) } 50% { transform: translateY(-6px) rotate(6deg) } 100% { transform: translateY(0) rotate(-6deg) } }
@@ -1833,8 +1833,8 @@ export default function App() {
                     @keyframes risk-warning-pulse { 0% { box-shadow: 0 8px 30px rgba(2,6,23,0.28) } 50% { box-shadow: 0 8px 30px rgba(239,68,68,0.45), 0 0 16px rgba(239,68,68,0.2) } 100% { box-shadow: 0 8px 30px rgba(2,6,23,0.28) } }
                     .weather-popup {
                       position: absolute; top: 12px; right: 72px; width: 280px; z-index: 520; padding: 12px; border-radius: 14px;
-                      border: 1px solid rgba(255,255,255,0.3);
-                      background: rgba(255,255,255,0.7);
+                      border: 1px solid var(--border);
+                      background: rgba(var(--card-rgb), 0.7);
                       box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); color: var(--text); backdrop-filter: blur(12px);
                       -webkit-backdrop-filter: blur(12px); display: flex; flex-direction: column; gap: 8px;
                       animation: popup-entry 600ms cubic-bezier(.22,.9,.26,1) forwards, popup-float 4s ease-in-out 700ms infinite;
