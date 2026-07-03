@@ -2,6 +2,17 @@
 
 [![CI](https://github.com/YOUR-USERNAME/YOUR-REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/YOUR-REPO/actions/workflows/ci.yml)
 
+## 🌐 Live Demo
+
+**👉 [Try the app now →](https://travel-ui-hazel.vercel.app)** (powered by Vercel + Railway)
+
+- **Register** with any email (e.g., `demo@example.com`)
+- **Get GPS** to see risk around your location
+- **Check Trip** to Đà Lạt, Hạ Long, etc. — see real-time weather AI, traffic, and risk scores
+- **Enable Push Alerts** for destinations you're interested in
+
+---
+
 > **Lean-Agile Workshop — Final Project Submission**
 >
 > An end-to-end AI-powered travel risk assessment system for Vietnam, combining real-time weather prediction (XGBoost), NLP-based news risk analysis (PhoBERT), live traffic data (SerpAPI + Google Maps), user accounts with trip history, severe-weather Web Push alerts, and an interactive map dashboard (React + Leaflet).
