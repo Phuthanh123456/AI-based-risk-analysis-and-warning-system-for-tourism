@@ -580,7 +580,7 @@ def _geocode_openmeteo(city_name: str) -> dict:
     for name in candidates:
         params = {"name": name, "count": 5, "language": "vi", "format": "json"}
         try:
-            resp = requests.get(url, params=params, timeout=10)
+            resp = requests.get(url, params=params, timeout=15)
         except Exception:
             continue
         if resp.status_code != 200:
@@ -607,6 +607,21 @@ def _geocode_openmeteo(city_name: str) -> dict:
     return default
 
 
+def _get_with_retry(url: str, params: dict, timeout: int, attempts: int = 3):
+    """GET with a couple of retries — some hosts (e.g. Railway's shared egress
+    IPs) see intermittent slow/failed connections to external APIs that a
+    retry clears up. Raises the last exception if all attempts fail."""
+    last_exc = None
+    for i in range(attempts):
+        try:
+            return requests.get(url, params=params, timeout=timeout)
+        except requests.exceptions.RequestException as e:
+            last_exc = e
+            if i < attempts - 1:
+                time.sleep(0.5 * (i + 1))
+    raise last_exc
+
+
 def _fetch_openmeteo_weather(lat: float, lon: float) -> dict:
     """
     Fetch current + hourly weather from Open-Meteo Forecast API.
@@ -621,7 +636,10 @@ def _fetch_openmeteo_weather(lat: float, lon: float) -> dict:
         "timezone": "auto",  # Use "auto" so Open-Meteo returns utc_offset_seconds for the location
         "forecast_days": 1,
     }
-    resp = requests.get(url, params=params, timeout=10)
+    try:
+        resp = _get_with_retry(url, params, timeout=20)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=502, detail=f"Open-Meteo Forecast unreachable: {e}")
     if resp.status_code != 200:
         raise HTTPException(status_code=502, detail=f"Open-Meteo Forecast error: {resp.text}")
     return resp.json()
@@ -641,7 +659,10 @@ def _fetch_openmeteo_forecast(lat: float, lon: float, days: int = 7) -> dict:
         "timezone": "auto",  # Use "auto" so Open-Meteo returns utc_offset_seconds for the location
         "forecast_days": min(max(days, 1), 16),
     }
-    resp = requests.get(url, params=params, timeout=15)
+    try:
+        resp = _get_with_retry(url, params, timeout=20)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=502, detail=f"Open-Meteo Forecast unreachable: {e}")
     if resp.status_code != 200:
         raise HTTPException(status_code=502, detail=f"Open-Meteo Forecast error: {resp.text}")
     return resp.json()
