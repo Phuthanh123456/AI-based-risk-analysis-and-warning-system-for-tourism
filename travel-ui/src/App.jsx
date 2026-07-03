@@ -370,10 +370,10 @@ export default function App() {
   const [showTripHistory, setShowTripHistory] = useState(false);
 
   async function loadTripHistory() {
-    if (!session?.token) return;
+    if (!session?.user?.token) return;
     setTripHistoryLoading(true);
     try {
-      const data = await apiGet("/api/trip-history", session.token);
+      const data = await apiGet("/api/trip-history", session.user.token);
       setTripHistory(data.results || []);
     } catch {
       // silently ignore — trip history is a nice-to-have, not core flow
@@ -383,13 +383,13 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (session?.token) loadTripHistory();
-  }, [session?.token]);
+    if (session?.user?.token) loadTripHistory();
+  }, [session?.user?.token]);
 
   async function deleteTripHistoryEntry(id) {
-    if (!session?.token) return;
+    if (!session?.user?.token) return;
     try {
-      await apiDelete(`/api/trip-history/${id}`, session.token);
+      await apiDelete(`/api/trip-history/${id}`, session.user.token);
       setTripHistory((prev) => prev.filter((t) => t.id !== id));
     } catch {}
   }
@@ -398,10 +398,10 @@ export default function App() {
   const [pushStatus, setPushStatus] = useState(""); // "", "loading", "enabled", "denied", "error"
 
   async function enableWeatherAlerts() {
-    if (!session?.token || !tripRes?.to) return;
+    if (!session?.user?.token || !tripRes?.to) return;
     setPushStatus("loading");
     try {
-      const ok = await subscribeToPush(session.token, {
+      const ok = await subscribeToPush(session.user.token, {
         destination: tripRes.to.name,
         lat: tripRes.to.lat,
         lon: tripRes.to.lon,
@@ -730,9 +730,9 @@ export default function App() {
         url += `&trip_purpose=${encodeURIComponent(activePurpose)}`;
       }
 
-      const data = await apiGet(url, session?.token);
+      const data = await apiGet(url, session?.user?.token);
       setTripRes(data);
-      if (session?.token) loadTripHistory();
+      if (session?.user?.token) loadTripHistory();
 
       // ===== Route polyline decode (respect polyline vs polyline6) =====
       const enc = data?.traffic?.route_polyline;
@@ -1583,7 +1583,7 @@ export default function App() {
                     </div>
                   )}
 
-                  {session?.token && isPushSupported() && (
+                  {session?.user?.token && isPushSupported() && (
                     <button
                       onClick={enableWeatherAlerts}
                       disabled={pushStatus === "loading" || pushStatus === "enabled"}
@@ -1617,7 +1617,7 @@ export default function App() {
             )}
           </div>
 
-          {session?.token && (
+          {session?.user?.token && (
             <div className="sidebar-card">
               <div
                 style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}
