@@ -2,15 +2,15 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/api/:path*" },
-    { "source": "/trip", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/trip" },
-    { "source": "/risk/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/risk/:path*" },
-    { "source": "/health", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/health" },
-    { "source": "/map/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/map/:path*" },
-    { "source": "/gps/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/gps/:path*" },
-    { "source": "/traffic/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/traffic/:path*" },
-    { "source": "/weather/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/weather/:path*" },
-    { "source": "/debug/:path*", "destination": "https://YOUR-RENDER-BACKEND-URL.onrender.com/debug/:path*" },
+    { "source": "/api/:path*", "destination": "https://travel-risk-api.onrender.com/api/:path*" },
+    { "source": "/trip", "destination": "https://travel-risk-api.onrender.com/trip" },
+    { "source": "/risk/:path*", "destination": "https://travel-risk-api.onrender.com/risk/:path*" },
+    { "source": "/health", "destination": "https://travel-risk-api.onrender.com/health" },
+    { "source": "/map/:path*", "destination": "https://travel-risk-api.onrender.com/map/:path*" },
+    { "source": "/gps/:path*", "destination": "https://travel-risk-api.onrender.com/gps/:path*" },
+    { "source": "/traffic/:path*", "destination": "https://travel-risk-api.onrender.com/traffic/:path*" },
+    { "source": "/weather/:path*", "destination": "https://travel-risk-api.onrender.com/weather/:path*" },
+    { "source": "/debug/:path*", "destination": "https://travel-risk-api.onrender.com/debug/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
