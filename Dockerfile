@@ -16,4 +16,6 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["uvicorn", "src.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Bind to $PORT when the host provides one (Railway, Render), else default to
+# 8000 (docker-compose, local). Shell form so the env var expands.
+CMD uvicorn src.api.app:app --host 0.0.0.0 --port ${PORT:-8000}
